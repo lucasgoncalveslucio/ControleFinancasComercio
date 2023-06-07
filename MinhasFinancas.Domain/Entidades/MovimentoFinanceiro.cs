@@ -19,9 +19,10 @@ namespace MinhasFinancas.Domain.Entidades
             Tipo = tipo;
         }
 
-        public decimal Valor { get; }
-        public string Descricao { get; }
-        public DateTime Data { get; }
-        public TipoMovimentoEnum Tipo { get; }
+        public decimal Valor { get; set; }
+        public string Descricao { get; set; }
+        public DateTime Data { get; set; }
+        public TipoMovimentoEnum Tipo { get; set; }
+
     }
 }

@@ -4,7 +4,9 @@ using MinhasFinancas.Domain.Enum;
 using MinhasFinancas.Infra.Data;
 using MinhasFinancas.ViewModel.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace MinhasFinancas.Infra.Repositories
@@ -20,13 +22,10 @@ namespace MinhasFinancas.Infra.Repositories
 
         public async IAsyncEnumerable<MovimentoFinanceiroViewModel> GetReceitasByData(DateTime data)
         {
-
-
-
             var result = await _context.MovimentoFinanceiro
-                                       .Where(x => //x.Data.Month == data.Month &&
-                                              x.Tipo == TipoMovimentoEnum.Receita)
-                                       .ToListAsync();
+                        .Where(x => x.Data != null && x.Data.Month == data.Month && x.Tipo == TipoMovimentoEnum.Receita)
+                        .ToListAsync();
+
 
             foreach (var item in result)
             {
@@ -38,9 +37,6 @@ namespace MinhasFinancas.Infra.Repositories
                     Data = item.Data
                 };
             }
-
-
-
         }
 
         public async IAsyncEnumerable<MovimentoFinanceiroViewModel> GetDespesasByData(DateTime data)
@@ -60,6 +56,26 @@ namespace MinhasFinancas.Infra.Repositories
                     Data = item.Data
                 };
             }
+        }
+
+        public async IAsyncEnumerable<ConsolidadeViewModel> GetConsolidadoByData(DateTime data)
+        {
+            decimal Despesa =   _context.MovimentoFinanceiro
+                                .Where(p => p.Data == data  && 
+                                    p.Tipo == TipoMovimentoEnum.Despesa)
+                                .Sum(p => p.Valor);
+
+            decimal Receita =   _context.MovimentoFinanceiro
+                                .Where(p => p.Data == data &&
+                                    p.Tipo == TipoMovimentoEnum.Receita)
+                                .Sum(p => p.Valor);
+
+            yield return new ConsolidadeViewModel
+            {
+                Saldo = Receita- Despesa,
+                Data = data
+            };
+
         }
     }
 }

@@ -67,6 +67,9 @@ namespace MinhasFinancas.Application.AppServices
 
         public async Task<IAsyncEnumerable<MovimentoFinanceiroViewModel>> GetDespesasByData( DateTime data)
             => await Task.FromResult(_financasQueryRepository.GetDespesasByData(  data));
- 
+
+        public async Task<IAsyncEnumerable<ConsolidadeViewModel>> GetConsolidadoByData(DateTime data)
+            => await Task.FromResult(_financasQueryRepository.GetConsolidadoByData(data));
+
     }
 }

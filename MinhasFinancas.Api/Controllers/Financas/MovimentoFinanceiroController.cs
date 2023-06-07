@@ -48,6 +48,19 @@ namespace MinhasFinancas.Api.Controllers.Financas
             return Ok(result);
         }
 
+        [HttpGet("consolidado")]
+        [ProducesResponseType(typeof(IEnumerable<MovimentoFinanceiroViewModel>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<MovimentoFinanceiroViewModel>), 404)]
+        public async Task<IActionResult> GetConsolidadoByData([FromQuery] DateTime data)
+        {
+            var result = await _appServiceHandler.GetConsolidadoByData(data.Date);
+
+            if (result is null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(NewMovimentoFinanceiroViewModel), 201)]
         [ProducesResponseType(typeof(Result<IReason>), 400)]
