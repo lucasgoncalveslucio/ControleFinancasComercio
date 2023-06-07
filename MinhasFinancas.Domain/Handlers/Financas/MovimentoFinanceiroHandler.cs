@@ -27,7 +27,7 @@ namespace MinhasFinancas.Domain.Handlers.Financas
             var entity = new MovimentoFinanceiro(request.Valor,
                                                  request.Descricao,
                                                  request.Data,
-                                                 request.Tipo );
+                                                 request.Tipo ,0);
 
              _financasRepositorio.Add(entity);
 
@@ -36,7 +36,14 @@ namespace MinhasFinancas.Domain.Handlers.Financas
 
         public async Task<Result<Entidade>> Handle(UpdateMovimentoFinanceiroCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var entity = new MovimentoFinanceiro(request.Valor,
+                                                  request.Descricao,
+                                                  request.Data,
+                                                  request.Tipo,
+                                                  request.Id);
+            _financasRepositorio.Update(entity);
+
+            return entity;
         }
     }
 }

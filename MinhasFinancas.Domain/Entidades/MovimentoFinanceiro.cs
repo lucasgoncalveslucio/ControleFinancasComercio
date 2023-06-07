@@ -11,12 +11,14 @@ namespace MinhasFinancas.Domain.Entidades
         public MovimentoFinanceiro(decimal valor, 
                                    string descricao, 
                                    DateTime data, 
-                                   TipoMovimentoEnum tipo)
+                                   TipoMovimentoEnum tipo,
+                                   int? id)
         {
             Valor = valor;
             Descricao = descricao;
             Data = data.Date;
             Tipo = tipo;
+            Id = (int)id;
         }
 
         public decimal Valor { get; set; }

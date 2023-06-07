@@ -1,4 +1,5 @@
-﻿using MinhasFinancas.Domain.Entidades;
+﻿using Microsoft.EntityFrameworkCore;
+using MinhasFinancas.Domain.Entidades;
 using MinhasFinancas.Domain.Interface;
 using MinhasFinancas.Infra.Data;
 
@@ -23,7 +24,8 @@ namespace MinhasFinancas.Infra.Repositories
 
         public void Update(MovimentoFinanceiro entity)
         {
-            throw new System.NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }
