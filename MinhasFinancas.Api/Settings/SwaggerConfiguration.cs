@@ -18,7 +18,7 @@ namespace MinhasFinancas.Api.Settings
             {
                 options.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "Minhas Finanças Api - Swagger",
+                    Title = "Controle Financas Comercio Api - Swagger",
                     Version = "v1"
                 });
 
